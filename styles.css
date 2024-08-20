@@ -1,0 +1,88 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Header styling */
+header {
+    background-color: #660000;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Map container styling */
+#map {
+    width: 70%;
+    height: 100vh;
+    float: left;
+}
+
+/* Sidebar styling */
+#sidebar {
+    width: 30%;
+    height: 100vh;
+    float: right;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: white;
+}
+
+/* Search input styling */
+#search {
+    width: 80%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Voice search button styling */
+#voiceSearch {
+    padding: 8px;
+    border: none;
+    background-color: #660000;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* Building list styling */
+#buildingList {
+    list-style: none;
+    padding: 0;
+}
+
+#buildingList li {
+    margin: 5px 0;
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+}
+
+/* Hover effect for building list items */
+#buildingList li:hover {
+    background-color: #efefef;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #map, #sidebar {
+        width: 100%;
+        height: 50vh;
+        float: none;
+    }
+
+    #map {
+        height: 50vh;
+    }
+
+    #sidebar {
+        height: auto;
+    }
+}
