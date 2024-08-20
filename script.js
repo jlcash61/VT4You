@@ -40,4 +40,25 @@ function loadBuildings(map) {
     });
 }
 
+document.getElementById('voiceSearch').onclick = () => {
+    const recognition = new webkitSpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.onresult = (event) => {
+        const query = event.results[0][0].transcript.toLowerCase();
+        searchBuilding(query);
+    };
+    recognition.start();
+};
+
+function searchBuilding(query) {
+    const building = buildings.find(b => b.name.toLowerCase().includes(query));
+    if (building) {
+        map.setView(building.coords, 17);
+        L.marker(building.coords).addTo(map)
+            .bindPopup(building.name)
+            .openPopup();
+    }
+}
+
+
 document.addEventListener("DOMContentLoaded", initMap);

@@ -16,7 +16,7 @@ header {
 
 /* Map container styling */
 #map {
-    width: 70%;
+    width: 68%;
     height: 100vh;
     float: left;
 }
@@ -71,7 +71,7 @@ header {
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: 800px) {
     #map, #sidebar {
         width: 100%;
         height: 50vh;
