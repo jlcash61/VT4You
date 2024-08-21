@@ -145,7 +145,8 @@ document.getElementById('adminLogin').onclick = () => {
             auth.signOut(); // Sign out if the user is not authorized
         }
     }).catch((error) => {
-        console.error("Login failed:", error);
+        console.error("Login failed: ", error.message); // Log the full error message
+        console.error("Error details: ", error); // Log the entire error object for more details
     });
 };
 
