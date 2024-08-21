@@ -36,25 +36,40 @@ function loadBuildings() {
     db.collection("buildings").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
             const building = doc.data();
-            buildings.push(building);
+            buildings.push({ ...building, id: doc.id });
 
             const li = document.createElement("li");
             li.textContent = building.name;
             li.onclick = () => {
                 map.setView(building.coords, 17);
-                L.marker(building.coords).addTo(map)
-                    .bindPopup(building.name)
-                    .openPopup();
+                createMarkerWithPopup(building);
             };
             buildingList.appendChild(li);
 
             // Add markers on map load
-            L.marker(building.coords).addTo(map)
-                .bindPopup(building.name);
+            createMarkerWithPopup(building);
         });
     }).catch((error) => {
         console.error("Error loading buildings: ", error);
     });
+}
+
+function createMarkerWithPopup(building) {
+    const marker = L.marker(building.coords).addTo(map);
+    let popupContent = `<b>${building.name}</b><br>`;
+
+    if (building.details && building.details.length > 0) {
+        building.details.forEach(detail => {
+            popupContent += `${detail.key}: ${detail.value}<br>`;
+        });
+    }
+
+    if (adminMode) {
+        popupContent += `<button onclick="editBuilding('${building.id}')">Edit</button>`;
+        popupContent += `<button onclick="deleteBuilding('${building.id}')">Delete</button>`;
+    }
+
+    marker.bindPopup(popupContent).openPopup();
 }
 
 function onMapClick(e) {
@@ -108,6 +123,35 @@ function saveBuilding(building) {
     });
 }
 
+function editBuilding(id) {
+    const building = buildings.find(b => b.id === id);
+    if (!building) return;
+
+    const newName = prompt("Edit the building name:", building.name);
+    if (newName) building.name = newName;
+
+    building.details.forEach((detail, index) => {
+        const newValue = prompt(`Edit ${detail.key}:`, detail.value);
+        if (newValue) building.details[index].value = newValue;
+    });
+
+    db.collection("buildings").doc(id).update(building).then(() => {
+        loadBuildings();
+    }).catch((error) => {
+        console.error("Error updating building: ", error);
+    });
+}
+
+function deleteBuilding(id) {
+    if (confirm("Are you sure you want to delete this building?")) {
+        db.collection("buildings").doc(id).delete().then(() => {
+            loadBuildings();
+        }).catch((error) => {
+            console.error("Error deleting building: ", error);
+        });
+    }
+}
+
 document.getElementById('voiceSearch').onclick = () => {
     const recognition = new webkitSpeechRecognition();
     recognition.lang = 'en-US';
@@ -122,9 +166,7 @@ function searchBuilding(query) {
     const building = buildings.find(b => b.name.toLowerCase().includes(query));
     if (building) {
         map.setView(building.coords, 17);
-        L.marker(building.coords).addTo(map)
-            .bindPopup(building.name)
-            .openPopup();
+        createMarkerWithPopup(building);
     } else {
         alert("Building not found");
     }
@@ -140,13 +182,13 @@ document.getElementById('adminLogin').onclick = () => {
             document.getElementById('adminLogin').style.display = 'none';
             document.getElementById('adminLogout').style.display = 'inline-block';
             alert(`Logged in as ${result.user.email}`);
+            loadBuildings(); // Reload buildings to show edit/delete buttons
         } else {
             alert("You are not authorized to access admin mode.");
             auth.signOut(); // Sign out if the user is not authorized
         }
     }).catch((error) => {
-        console.error("Login failed: ", error.message); // Log the full error message
-        console.error("Error details: ", error); // Log the entire error object for more details
+        console.error("Login failed: ", error.message);
     });
 };
 
@@ -156,6 +198,7 @@ document.getElementById('adminLogout').onclick = () => {
         document.getElementById('adminLogin').style.display = 'inline-block';
         document.getElementById('adminLogout').style.display = 'none';
         alert("Logged out");
+        loadBuildings(); // Reload buildings to hide edit/delete buttons
     }).catch((error) => {
         console.error("Logout failed:", error);
     });
