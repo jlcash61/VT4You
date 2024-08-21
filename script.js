@@ -135,7 +135,7 @@ document.getElementById('adminLogin').onclick = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider).then((result) => {
         // Check if the user is the authorized admin
-        if (result.user.email === "your_admin_email@example.com") {
+        if (result.user.email === "jlcash61@gmail.com") {
             adminMode = true;
             document.getElementById('adminLogin').style.display = 'none';
             document.getElementById('adminLogout').style.display = 'inline-block';
