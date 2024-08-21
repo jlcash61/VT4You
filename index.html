@@ -8,15 +8,25 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 </head>
 <body>
-    <header>
-        <h1>Virginia Tech Campus Navigator</h1>
-        <button id="adminLogin" class="admin-button">Admin Login</button>
-        <button id="adminLogout" class="admin-button" style="display: none;">Logout</button>
+    <header id="main-header">
+        <div id="logo-left">
+            <img src="hokie.png" alt="Hokie Bird Logo" id="hokie-bird">
+        </div>
+        <h1 id="title">Virginia Tech Campus Navigator</h1><br>
+        
+        <div id="logo-right">
+            <img src="jci.png" alt="JCI Logo" id="jci-logo">
+            
+        </div>
+        
+        
+        
     </header>
     <main>
         <div id="map"></div>
         <div id="sidebar">
-            <input type="text" id="search" placeholder="Enter building name or use voice">
+            <button id="adminLogin" class="admin-button">Admin Login</button>
+        <button id="adminLogout" class="admin-button" style="display: none;">Logout</button>
             <button id="voiceSearch">🎤</button>
             <ul id="buildingList"></ul>
         </div>
@@ -27,6 +37,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
 
-    <script src="script.js?v=2.2"></script>
+    <script src="script.js?v=2.5"></script>
 </body>
 </html>

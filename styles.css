@@ -14,6 +14,49 @@ header {
     text-align: center;
 }
 
+/* Basic styling for the header */
+#main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #660000; /* Hokie maroon */
+    color: white;
+    position: relative;
+}
+
+/* Styling for the logos */
+#logo-left, #logo-right {
+    width: 100px; /* Adjust based on your logo size */
+    height: auto;
+}
+
+#logo-left img, #logo-right img {
+    width: 100%; /* Make the logos responsive */
+    height: auto;
+}
+
+/* Styling for the header title */
+#title {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 24px;
+}
+
+/* Undulating background effect for Hokie colors */
+@keyframes undulateColors {
+    0% { background-color: #660000; }  /* Hokie maroon */
+    25% { background-color: #cf4420; } /* Hokie orange */
+    50% { background-color: #ff9900; } /* Another shade of Hokie orange */
+    75% { background-color: #cf4420; } /* Hokie orange */
+    100% { background-color: #660000; }  /* Hokie maroon */
+}
+
+#main-header {
+    animation: undulateColors 10s linear infinite;
+}
+
+
 /* Admin buttons styling */
 .admin-button {
     background-color: #660000;
@@ -86,7 +129,7 @@ header {
 }
 
 /* Responsive adjustments */
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
     #map, #sidebar {
         width: 100%;
         height: 50vh;

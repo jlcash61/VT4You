@@ -35,9 +35,8 @@ function loadBuildings() {
     buildingList.innerHTML = '';  // Clear the list before reloading
     db.collection("buildings").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-            const building = doc.data();
-            buildings.push({ ...building, id: doc.id });
-
+            const building = { ...doc.data(), id: doc.id };
+            buildings.push(building); // Now buildings array will have objects with IDs
             const li = document.createElement("li");
             li.textContent = building.name;
             li.onclick = () => {
@@ -47,7 +46,7 @@ function loadBuildings() {
             buildingList.appendChild(li);
 
             // Add markers on map load
-            createMarkerWithPopup(building);
+            //createMarkerWithPopup(building);
         });
     }).catch((error) => {
         console.error("Error loading buildings: ", error);
@@ -63,6 +62,9 @@ function createMarkerWithPopup(building) {
             popupContent += `${detail.key}: ${detail.value}<br>`;
         });
     }
+
+    console.log("Building object:", building);
+
 
     if (adminMode) {
         popupContent += `<button onclick="editBuilding('${building.id}')">Edit</button>`;
@@ -124,6 +126,8 @@ function saveBuilding(building) {
 }
 
 function editBuilding(id) {
+    console.log("Editing building");
+    console.log("Editing building with ID: ", id);
     const building = buildings.find(b => b.id === id);
     if (!building) return;
 
@@ -143,6 +147,7 @@ function editBuilding(id) {
 }
 
 function deleteBuilding(id) {
+    console.log("Delete building with ID: ", id);
     if (confirm("Are you sure you want to delete this building?")) {
         db.collection("buildings").doc(id).delete().then(() => {
             loadBuildings();
@@ -203,5 +208,7 @@ document.getElementById('adminLogout').onclick = () => {
         console.error("Logout failed:", error);
     });
 };
+console.log("Testing console log at the top level");
+console.log("Testing console log at the top level");
 
 document.addEventListener("DOMContentLoaded", initMap);
