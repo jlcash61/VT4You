@@ -14,6 +14,21 @@ header {
     text-align: center;
 }
 
+/* Admin buttons styling */
+.admin-button {
+    background-color: #660000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.admin-button:hover {
+    background-color: #880000;
+}
+
 /* Map container styling */
 #map {
     width: 68%;
