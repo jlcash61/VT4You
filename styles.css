@@ -20,19 +20,24 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background-color: #660000; /* Hokie maroon */
+    background-color: #660000;
+    /* Hokie maroon */
     color: white;
     position: relative;
 }
 
 /* Styling for the logos */
-#logo-left, #logo-right {
-    width: 100px; /* Adjust based on your logo size */
+#logo-left,
+#logo-right {
+    width: 100px;
+    /* Adjust based on your logo size */
     height: auto;
 }
 
-#logo-left img, #logo-right img {
-    width: 100%; /* Make the logos responsive */
+#logo-left img,
+#logo-right img {
+    width: 100%;
+    /* Make the logos responsive */
     height: auto;
 }
 
@@ -45,11 +50,31 @@ header {
 
 /* Undulating background effect for Hokie colors */
 @keyframes undulateColors {
-    0% { background-color: #660000; }  /* Hokie maroon */
-    25% { background-color: #cf4420; } /* Hokie orange */
-    50% { background-color: #ff9900; } /* Another shade of Hokie orange */
-    75% { background-color: #cf4420; } /* Hokie orange */
-    100% { background-color: #660000; }  /* Hokie maroon */
+    0% {
+        background-color: #660000;
+    }
+
+    /* Hokie maroon */
+    25% {
+        background-color: #cf4420;
+    }
+
+    /* Hokie orange */
+    50% {
+        background-color: #ff9900;
+    }
+
+    /* Another shade of Hokie orange */
+    75% {
+        background-color: #cf4420;
+    }
+
+    /* Hokie orange */
+    100% {
+        background-color: #660000;
+    }
+
+    /* Hokie maroon */
 }
 
 #main-header {
@@ -63,7 +88,17 @@ header {
     color: white;
     border: none;
     padding: 10px 20px;
-    margin: 10px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.route-button {
+    background-color: #660000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
     cursor: pointer;
     border-radius: 4px;
 }
@@ -130,7 +165,9 @@ header {
 
 /* Responsive adjustments */
 @media (max-width: 1000px) {
-    #map, #sidebar {
+
+    #map,
+    #sidebar {
         width: 100%;
         height: 50vh;
         float: none;

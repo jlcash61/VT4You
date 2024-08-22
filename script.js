@@ -2,6 +2,7 @@ let map;
 let newMarker;
 let buildings = [];
 let adminMode = false;
+let currentMarker = null; // Variable to track the current marker
 
 // Firebase setup
 const firebaseConfig = {
@@ -54,7 +55,17 @@ function loadBuildings() {
 }
 
 function createMarkerWithPopup(building) {
-    const marker = L.marker(building.coords).addTo(map);
+    // Check if a marker exists and log the removal
+    if (currentMarker) {
+
+        map.removeLayer(currentMarker);
+        currentMarker = null; // Clear the currentMarker after removal
+    }
+
+    // Add the new marker for the selected building
+    currentMarker = L.marker(building.coords).addTo(map);
+
+
     let popupContent = `<b>${building.name}</b><br>`;
 
     if (building.details && building.details.length > 0) {
@@ -63,16 +74,20 @@ function createMarkerWithPopup(building) {
         });
     }
 
-    console.log("Building object:", building);
-
-
     if (adminMode) {
         popupContent += `<button onclick="editBuilding('${building.id}')">Edit</button>`;
         popupContent += `<button onclick="deleteBuilding('${building.id}')">Delete</button>`;
     }
 
-    marker.bindPopup(popupContent).openPopup();
+    currentMarker.bindPopup(popupContent).openPopup();
+
+    // Update the selected building and show the "Route Me There" button
+    selectedBuilding = building;
+    document.getElementById('routeButton').style.display = 'inline-block';
 }
+
+
+
 
 function onMapClick(e) {
     if (!adminMode) {
@@ -87,6 +102,8 @@ function onMapClick(e) {
     newMarker = L.marker(latlng).addTo(map)
         .bindPopup("New Building Location")
         .openPopup();
+
+
 
     // Prompt the user for a building name
     const buildingName = prompt("Enter the name of the new building:");
@@ -208,7 +225,72 @@ document.getElementById('adminLogout').onclick = () => {
         console.error("Logout failed:", error);
     });
 };
-console.log("Testing console log at the top level");
-console.log("Testing console log at the top level");
+
+let selectedBuilding = null;
+let routingControl = null;
+
+function createMarkerWithPopup(building) {
+    const marker = L.marker(building.coords).addTo(map);
+    let popupContent = `<b>${building.name}</b><br>`;
+
+    if (building.details && building.details.length > 0) {
+        building.details.forEach(detail => {
+            popupContent += `${detail.key}: ${detail.value}<br>`;
+        });
+    }
+
+    if (adminMode) {
+        popupContent += `<button onclick="editBuilding('${building.id}')">Edit</button>`;
+        popupContent += `<button onclick="deleteBuilding('${building.id}')">Delete</button>`;
+    }
+
+    marker.bindPopup(popupContent).openPopup();
+
+    // Update the selected building and show the "Route Me There" button
+    marker.on('click', () => {
+        selectedBuilding = building;
+        document.getElementById('routeButton').style.display = 'inline-block';
+    });
+}
+
+document.getElementById('routeButton').onclick = () => {
+    if (selectedBuilding) {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const currentLocation = [position.coords.latitude, position.coords.longitude];
+                routeToBuilding(currentLocation, selectedBuilding.coords);
+            }, (error) => {
+                alert("Could not retrieve your location. Please enable location services and try again.");
+                console.error("Geolocation error:", error);
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
+};
+
+function routeToBuilding(startCoords, endCoords) {
+    // Remove existing route if any
+    if (routingControl) {
+        map.removeControl(routingControl);
+    }
+
+    routingControl = L.Routing.control({
+        waypoints: [
+            L.latLng(startCoords),
+            L.latLng(endCoords)
+        ],
+        routeWhileDragging: true,
+        router: L.Routing.osrmv1({
+            serviceUrl: 'https://router.project-osrm.org/route/v1',
+            useHints: false,
+            profile: 'car',
+            unit: 'imperial' // Set the unit to 'imperial' for miles
+        }),
+        formatter: new L.Routing.Formatter({
+            units: 'imperial'
+        })
+    }).addTo(map);
+}
 
 document.addEventListener("DOMContentLoaded", initMap);
