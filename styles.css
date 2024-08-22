@@ -81,6 +81,16 @@ header {
     animation: undulateColors 10s linear infinite;
 }
 
+#header-center {
+    text-align: center;
+    flex-grow: 1;
+}
+
+#weather {
+    font-size: 16px;
+    margin-top: 5px;
+}
+
 
 /* Admin buttons styling */
 .admin-button {

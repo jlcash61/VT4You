@@ -29,7 +29,30 @@ function initMap() {
     map.on('click', onMapClick);
 
     loadBuildings();
+    fetchWeather();
 }
+
+function fetchWeather() {
+    const weatherUrl = "https://api.open-meteo.com/v1/forecast?latitude=37.228384&longitude=-80.423418&current_weather=true";
+
+    fetch(weatherUrl)
+        .then(response => response.json())
+        .then(data => {
+            const weather = data.current_weather;
+            const tempCelsius = weather.temperature;
+            const tempFahrenheit = (tempCelsius * 9/5) + 32;
+            const description = weather.weathercode_description || 'Clear'; // Default to 'Clear' if description is undefined
+
+            // Display weather information in the header in Fahrenheit
+            document.getElementById('weather').innerText = `Blacksburg: ${tempFahrenheit.toFixed(1)}°F, ${description}`;
+        })
+        .catch(error => {
+            console.error("Error fetching weather data:", error);
+            document.getElementById('weather').innerText = "Weather data not available";
+        });
+}
+
+
 
 function loadBuildings() {
     const buildingList = document.getElementById("buildingList");
