@@ -117,6 +117,22 @@ header {
     background-color: #880000;
 }
 
+.admin-mode-button {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.admin-mode-button:hover {
+    opacity: 0.85;
+}
+
 /* Map container styling */
 #map {
     width: 68%;
@@ -190,4 +206,117 @@ header {
     #sidebar {
         height: auto;
     }
+}
+
+/* Login Modal */
+#loginModal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+#loginModalBox {
+    background: white;
+    border-radius: 8px;
+    padding: 30px;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+#loginModalBox h2 {
+    margin: 0 0 4px 0;
+    color: #660000;
+    text-align: center;
+}
+
+#modalClose {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #666;
+}
+
+#modalEmail,
+#modalPassword {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#modalError {
+    color: #cc0000;
+    font-size: 13px;
+    min-height: 18px;
+    text-align: center;
+}
+
+.modal-btn {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.modal-btn-primary {
+    background-color: #660000;
+    color: white;
+    font-weight: bold;
+}
+
+.modal-btn-primary:hover {
+    background-color: #880000;
+}
+
+.modal-btn-google {
+    background-color: #fff;
+    color: #444;
+    border: 1px solid #ccc;
+}
+
+.modal-btn-google:hover {
+    background-color: #f5f5f5;
+}
+
+.modal-divider {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #aaa;
+    font-size: 12px;
+}
+
+.modal-divider::before,
+.modal-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #ddd;
+}
+
+.modal-btn-link {
+    background: none;
+    border: none;
+    color: #660000;
+    font-size: 13px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: underline;
+    padding: 0;
 }
