@@ -51,6 +51,7 @@ function buildAdminPopupContent(building) {
     <hr>
     <button onclick="editBuilding('${building.id}')">Edit</button>
     <button onclick="deleteBuilding('${building.id}')">Delete</button>
+    <button onclick="moveBuilding('${building.id}')">Move Marker</button>
   `;
 }
 
@@ -125,4 +126,29 @@ async function editBuilding(id) {
       }
     }
   }
+}
+
+async function moveBuilding(id) {
+  const building = buildings.find((b) => b.id === id);
+  if (!building) return;
+
+  alert("Click the new location on the map.");
+
+  map.once("click", async (e) => {
+    const newCoords = [e.latlng.lat, e.latlng.lng];
+
+    await updateBuilding(id, {
+      coords: newCoords
+    });
+
+    building.coords = newCoords;
+
+    if (currentMarker) {
+      map.removeLayer(currentMarker);
+    }
+
+    createMarkerWithPopup(building);
+
+    alert("Marker moved successfully.");
+  });
 }

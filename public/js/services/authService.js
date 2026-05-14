@@ -141,12 +141,14 @@ function updateAuthUi() {
   const loginButton = document.getElementById("loginButton");
   const logoutButton = document.getElementById("logoutButton");
   const adminModeButton = document.getElementById("adminModeButton");
+  const adminPanelLink = document.getElementById("adminPanelLink");
   const authStatus = document.getElementById("authStatus");
 
   if (!currentUser) {
     loginButton.style.display = "inline-block";
     logoutButton.style.display = "none";
     adminModeButton.style.display = "none";
+    if (adminPanelLink) adminPanelLink.style.display = "none";
     authStatus.innerText = "Public mode";
     return;
   }
@@ -158,8 +160,10 @@ function updateAuthUi() {
     adminModeButton.style.display = "inline-block";
     adminModeButton.innerText = adminModeActive ? "🔴 Admin Mode ON" : "⚪ Admin Mode OFF";
     adminModeButton.style.backgroundColor = adminModeActive ? "#8b0000" : "#444";
+    if (adminPanelLink) adminPanelLink.style.display = "inline-block";
   } else {
     adminModeButton.style.display = "none";
+    if (adminPanelLink) adminPanelLink.style.display = "none";
   }
 
   const modeLabel = isAdmin()

@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VA Tech Campus Map</title>
 
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="stylesheet" href="/styles/main.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css">
@@ -51,6 +57,7 @@
       <button id="loginButton" class="admin-button">Login</button>
       <button id="logoutButton" class="admin-button" style="display: none;">Logout</button>
       <button id="adminModeButton" class="admin-mode-button" style="display: none;">⚪ Admin Mode OFF</button>
+      <a id="adminPanelLink" href="/admin.html" class="admin-panel-link" style="display: none;">👥 Manage Users</a>
       <button id="routeButton" class="route-button" style="display: none;">Route Me There</button>
       <button id="voiceSearch">🎤</button>
       <ul id="buildingList"></ul>

@@ -1,0 +1,132 @@
+/* admin.css — styles for the admin panel page */
+
+#admin-main {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+#admin-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.back-link {
+  color: #660000;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+#admin-main h2 {
+  color: #660000;
+  margin-bottom: 6px;
+}
+
+.admin-note {
+  color: #555;
+  font-size: 14px;
+  margin-bottom: 20px;
+  background: #fff8e1;
+  border-left: 4px solid #cf4420;
+  padding: 10px 14px;
+  border-radius: 4px;
+}
+
+#userTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+#userTable thead {
+  background-color: #660000;
+  color: white;
+}
+
+#userTable th,
+#userTable td {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 14px;
+}
+
+#userTable tbody tr {
+  border-bottom: 1px solid #eee;
+}
+
+#userTable tbody tr:last-child {
+  border-bottom: none;
+}
+
+#userTable tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+#userTable tbody tr.is-self {
+  background-color: #f5f5f5;
+  color: #999;
+}
+
+.role-select {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.role-select:disabled {
+  background-color: #eee;
+  cursor: not-allowed;
+}
+
+.save-btn {
+  background-color: #660000;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.save-btn:hover:not(:disabled) {
+  background-color: #880000;
+}
+
+.save-btn:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.save-status {
+  font-size: 12px;
+  margin-left: 8px;
+  color: #2e7d32;
+}
+
+.save-status.error {
+  color: #cc0000;
+}
+
+#loadingMsg {
+  color: #555;
+  font-style: italic;
+  margin-top: 20px;
+}
+
+.error-msg {
+  color: #cc0000;
+  font-size: 14px;
+  margin-top: 10px;
+}

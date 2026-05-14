@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VT4You — Admin Panel</title>
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="stylesheet" href="/styles/admin.css">
+</head>
+
+<body>
+  <header id="main-header">
+    <div id="logo-left">
+      <img src="/assets/hokie.png" alt="Hokie Bird Logo" id="hokie-bird">
+    </div>
+    <div id="header-center">
+      <h1 id="title">Admin Panel</h1>
+      <div id="authStatus"></div>
+    </div>
+    <div id="logo-right">
+      <img src="/assets/jci.png" alt="JCI Logo" id="jci-logo">
+    </div>
+  </header>
+
+  <main id="admin-main">
+    <div id="admin-toolbar">
+      <a href="/" class="back-link">← Back to Map</a>
+      <button id="logoutButton" class="admin-button">Logout</button>
+    </div>
+
+    <h2>User Role Management</h2>
+    <p class="admin-note">You cannot change your own role. To remove access entirely, set a user to <strong>public</strong>. For account deletion or blocking, use the Firebase Console.</p>
+
+    <div id="loadingMsg">Loading users…</div>
+    <div id="errorMsg" class="error-msg"></div>
+
+    <table id="userTable" style="display:none;">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Display Name</th>
+          <th>Role</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="userTableBody"></tbody>
+    </table>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="/js/config/firebase-config.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

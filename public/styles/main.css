@@ -320,3 +320,20 @@ header {
     text-decoration: underline;
     padding: 0;
 }
+
+/* Admin panel link in sidebar */
+.admin-panel-link {
+    display: inline-block;
+    background-color: #444;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.admin-panel-link:hover {
+    background-color: #222;
+}
