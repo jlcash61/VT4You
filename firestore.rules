@@ -30,13 +30,32 @@ service cloud.firestore {
     }
 
     // ── Users ──────────────────────────────────────────────────────────────────
-    // Any authenticated user can read their own doc (needed for role lookup).
-    // Admins can read all user docs (needed for the admin panel).
-    // Admins can write any user doc EXCEPT their own (prevents self-demotion).
     match /users/{userId} {
+
+      // Users can read ONLY themselves.
+      // Admins can read everybody.
       allow read: if request.auth != null &&
                     (request.auth.uid == userId || isAdmin());
-      allow write: if isAdmin() && request.auth.uid != userId;
+
+      // User can create their own profile document.
+      allow create: if request.auth != null &&
+                      request.auth.uid == userId;
+
+      // Users can update their own profile
+      // BUT cannot change their role.
+      // Admins can update any user except themselves.
+      allow update: if request.auth != null &&
+                      (
+                        (
+                          request.auth.uid == userId &&
+                          request.resource.data.role == resource.data.role
+                        )
+                        ||
+                        (isAdmin() && request.auth.uid != userId)
+                      );
+
+      // Optional: only admins can delete users.
+      allow delete: if isAdmin();
     }
 
   }
